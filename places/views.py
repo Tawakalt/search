@@ -9,9 +9,14 @@ load_dotenv()
 def index(request): 
     q = request.GET.get("q", False)
     if q:
+        lng = request.GET.get("lng", False)
+        lat = request.GET.get("lat", False)
         API_KEY = os.getenv('API_KEY')
         searchUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&"
-        searchResponse = requests.get(f'{searchUrl}input={q}&key={API_KEY}') 
+        if lng and lat:
+            searchResponse = requests.get(f'{searchUrl}input={q}&locationbias=point:{lng},{lat}&key={API_KEY}') 
+        else:
+            searchResponse = requests.get(f'{searchUrl}input={q}&key={API_KEY}') 
         placeSearch = searchResponse.json()
 
         if placeSearch['candidates']:
@@ -46,5 +51,5 @@ def index(request):
             'status': 'INVALID REQUEST',
             'error': 'Parameter q is required'
         }
-        
+        return JsonResponse(data, status=400)    
     return JsonResponse(data)
