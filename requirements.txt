@@ -1,3 +1,4 @@
+coverage==5.0.4
 distlib==0.3.0
 importlib-metadata==1.5.0
 importlib-resources==1.4.0
