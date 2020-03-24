@@ -6,10 +6,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def index(request, pk): 
+def index(request): 
+    q = request.GET.get("q", False)
     API_KEY = os.getenv('API_KEY')
     searchUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&"
-    searchResponse = requests.get(f'{searchUrl}input={pk}&key={API_KEY}') 
+    searchResponse = requests.get(f'{searchUrl}input={q}&key={API_KEY}') 
     placeSearch = searchResponse.json()
 
     if placeSearch['candidates']:
