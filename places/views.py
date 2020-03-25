@@ -2,9 +2,6 @@ from django.http import JsonResponse
 import requests, json, os
 from dotenv import load_dotenv
 
-# reading .env file
-load_dotenv()
-
 
 def index(request): 
     q = request.GET.get("q", False)
