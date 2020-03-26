@@ -18,7 +18,7 @@ def index(request):
     
     data = {
         'status': 'INVALID REQUEST',
-        'error': 'Other Sources are under development'
+        'error': 'Other Sources are still under development, please choose google as source'
     }
     return JsonResponse(data, status=400) 
     
