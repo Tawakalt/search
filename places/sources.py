@@ -3,16 +3,16 @@ import requests, json, os
 
 
 def google(request):
-    q = request.GET.get("q", False)
-    lng = request.GET.get("lng", False)
-    lat = request.GET.get("lat", False)
+    q = request.GET.get("q", '')
+    lng = request.GET.get("lng", '')
+    lat = request.GET.get("lat", '')
     API_KEY = os.getenv('API_KEY')
-    searchUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&"
+    searchUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&" 
 
     if lng and lat:
         searchResponse = requests.get(f'{searchUrl}input={q}&locationbias=point:{lng},{lat}&key={API_KEY}') 
     else:
-        searchResponse = requests.get(f'{searchUrl}input={q}&key={API_KEY}') 
+        searchResponse = requests.get(f'{searchUrl}input={q}&key={API_KEY}')
     placeSearch = searchResponse.json()
 
     if placeSearch['candidates']:

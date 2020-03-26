@@ -1,5 +1,5 @@
 from django.test import TestCase
-from . import mock
+from .mock import details, no_candidate, candidate
 import responses, requests, os
 
 API_KEY = os.getenv('API_KEY')
@@ -14,9 +14,6 @@ ZERO_SEARCH_URL = f"{URL}xxxx"
 SEARCH_URL = f"{URL}{Q}"
 SEARCH_URL_WITH_LOCATION = f"{SEARCH_URL}&locationbias=point:{LNG},{LAT}"
 DETAILS_URL = f"{COMMON}details/json?place_id={PLACE_ID}&key={API_KEY}"
-DETAILS = mock.details
-NO_CANDIDATE = mock.no_candidate
-CANDIDATE = mock.candidate
 RESULT = {
     'status': 'OK',
     'result': {
@@ -37,9 +34,9 @@ class SearchTest(TestCase):
     @responses.activate
     def test_displays_result_for_found_places_without_location_params(self):
         responses.add(responses.GET, SEARCH_URL,
-                    json=CANDIDATE, status=200)
+                    json=candidate, status=200)
         responses.add(responses.GET, DETAILS_URL,
-                    json=DETAILS, status=200)
+                    json=details, status=200)
 
         response = self.client.get('/?q=lagos&source=google')
         data = response.json()
@@ -49,9 +46,9 @@ class SearchTest(TestCase):
     @responses.activate
     def test_displays_result_for_found_places_with_location_params(self):
         responses.add(responses.GET, SEARCH_URL_WITH_LOCATION,
-                    json=CANDIDATE, status=200)
+                    json=candidate, status=200)
         responses.add(responses.GET, DETAILS_URL,
-                    json=DETAILS, status=200)
+                    json=details, status=200)
 
         response = self.client.get('/?q=lagos&source=google&lng=3.3792057&lat=6.5243793')
         data = response.json()
@@ -61,7 +58,7 @@ class SearchTest(TestCase):
     @responses.activate
     def test_displays_empty_result_if_place_not_found(self):
         responses.add(responses.GET, ZERO_SEARCH_URL,
-                    json=NO_CANDIDATE, status=200)
+                    json=no_candidate, status=200)
         
         response = self.client.get('/?q=xxxx&source=google')
         data = response.json()

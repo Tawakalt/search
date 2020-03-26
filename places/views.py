@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 import requests, json, os
-from . import sources
+from .sources import google
 
 
 def index(request): 
@@ -14,7 +14,7 @@ def index(request):
         return JsonResponse(data, status=400) 
     
     if source.lower() == 'google':
-        return sources.google(request)
+        return google(request)
     
     data = {
         'status': 'INVALID REQUEST',
