@@ -21,6 +21,9 @@ def index(request):
         'error': 'Other Sources are still under development, please choose google as source'
     }
     return JsonResponse(data, status=400) 
+
+def others(request):
+    return JsonResponse({'error': 'PAGE NOT FOUND'}, status=404)
     
 
  

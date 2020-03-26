@@ -81,3 +81,9 @@ class SearchTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(data['status'], 'INVALID REQUEST')
         self.assertEqual(data['error'], 'Other Sources are still under development, please choose google as source')
+
+    def test_all_undefined_endpoints_return_404_error(self):
+        response = self.client.get('/aaaa')
+        error = response.json()
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(error, {'error': 'PAGE NOT FOUND'})
