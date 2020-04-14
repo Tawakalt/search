@@ -12,7 +12,7 @@ COMMON = "https://maps.googleapis.com/maps/api/place/"
 URL = f"{COMMON}findplacefromtext/json?inputtype=textquery&key={API_KEY}&input="
 ZERO_SEARCH_URL = f"{URL}xxxx"
 SEARCH_URL = f"{URL}{Q}"
-SEARCH_URL_WITH_LOCATION = f"{SEARCH_URL}&locationbias=point:{LNG},{LAT}"
+SEARCH_URL_WITH_LOCATION = f"{SEARCH_URL}&locationbias=point:{LAT},{LNG}"
 DETAILS_URL = f"{COMMON}details/json?place_id={PLACE_ID}&key={API_KEY}"
 RESULT = {
     'status': 'OK',

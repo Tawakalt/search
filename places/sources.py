@@ -10,7 +10,7 @@ def google(request):
     searchUrl = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?inputtype=textquery&" 
 
     if lng and lat:
-        searchResponse = requests.get(f'{searchUrl}input={q}&locationbias=point:{lng},{lat}&key={API_KEY}') 
+        searchResponse = requests.get(f'{searchUrl}input={q}&locationbias=point:{lat},{lng}&key={API_KEY}') 
     else:
         searchResponse = requests.get(f'{searchUrl}input={q}&key={API_KEY}')
     placeSearch = searchResponse.json()
