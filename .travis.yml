@@ -1,13 +1,13 @@
 language: python
 python:
   - "3.8"
+services:
+  - docker
 # command to install dependencies
 install:
-  - pip install -r requirements.txt
-  - pip install coverage
+  - docker-compose build
   - pip install coveralls
-  - pip install responses
 # command to run tests
 script:
-  - coverage run manage.py test
+  - docker-compose run -e --no-deps --rm search coverage run manage.py test
   - coveralls
