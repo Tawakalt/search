@@ -3,6 +3,7 @@ FROM python:3-alpine
 
 LABEL Name=search Version=0.0.1
 EXPOSE 8000
+ENV PORT 8000
 
 # set working directory
 WORKDIR /usr/src/app
@@ -21,4 +22,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # startup command
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "search.wsgi"]
+CMD gunicorn --bind 0.0.0.0:$PORT search.wsgi 
+
